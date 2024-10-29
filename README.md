@@ -1,48 +1,53 @@
 # ML_final_project
 
-The dataset for research and model training contains 10,000 entries. There are a total of 230 features, of which the first 190 are numerical, and the remainder are categorical. Your task is binary classification, with the target variable labeled as y.
+Final project Machine Learning Fundamentals and Applications
 
-You will need the following files, which can be found on the competition page as well as in the repository:
+[https://www.kaggle.com/competitions/ml-fundamentals-and-applications-2024-10-01](https://www.kaggle.com/competitions/ml-fundamentals-and-applications-2024-10-01)
 
-final_proj_data.csv - the training dataset
-final_proj_test.csv - the validation dataset
-final_proj_sample_submission.csv - a sample file for submitting predictions in the correct format
+This anonymized dataset includes a mix of numerical and categorical data points that capture various aspects of customer behavior. The goal is to predict if a customer might leave or continue using the service. The dataset includes details such as demographics, service usage patterns, billing history, and interactions with support services.
 
-### Useful Tips for Participating in the Competition
+### The data is organized into three parts:
 
-1. Carefully analyze the dataset.
+Training Set: for teaching the model patterns in the data.
+Testing Set: for checking model performance as you build and improve it.
+Validation Set: for making final predictions and getting scores on Kaggle.
 
-2. Identify feature types and check for missing values.
+### The key steps of getting the solution
 
-3. Consider whether to impute missing data and assess if features with missing values are worth using.
+#### 1. Exploratory Data Analysis (EDA)
 
-4. Count the number of unique categories for categorical features and select an optimal encoding method.
+- Data loading and initial structure inspection: Loaded training and testing data to explore features and target variable y.
+- Identified and separated numerical and categorical features for specific preprocessing.
 
-5. Evaluate the class distribution in the dataset and decide if balancing is necessary, and if so, how best to approach it.
+#### 2. Data Preprocessing
 
-6. Depending on the chosen prediction algorithm, assess whether feature normalization is required.
+- **Imputation:**
+  - For numerical features: Used median imputation to handle missing values.
+  - For categorical features: Filled missing values with "missing" as a placeholder.
+- **Feature Scaling:**
+  - Applied StandardScaler to numerical features for consistent scaling.
+- **Categorical Encoding:**
+- Used OneHotEncoder for categorical variables to convert categories into numerical format, handling unknown categories by ignoring them.
 
-7. Conduct experiments with dimensionality reduction and compare the accuracy of predictions.
+#### 3. Class Balancing
 
-8. When needed, test different algorithms/ensembles of models and tune their hyperparameters.
+- Applied **SMOTE (Synthetic Minority Over-sampling Technique)** within the pipeline to balance the class distribution in y, generating synthetic samples for the minority class.
 
-9. For objective prediction assessment, try building an ML pipeline and performing cross-validation. If you decide to balance classes using the imblearn package, note that the Pipeline object allows you to integrate the class balancing step directly into the ML pipeline.
+#### 4. Model Selection and Training
 
-10. Before generating predictions for the validation set, retrain (or fine-tune) your final model on all available data (both training and test datasets).
+- **Pipeline Construction:**
+  - Built a comprehensive pipeline (ImbPipeline) integrating preprocessing, SMOTE balancing, and modeling with AdaBoostClassifier.
+- **Cross-Validation:**
+  - Conducted 5-fold cross-validation with balanced accuracy scoring to ensure the model’s robustness and to address class imbalance.
 
-11. Prepare a .csv file in which, for each client identifier in the validation set (column index), you indicate the predicted value of the target variable y.
+#### 5. Evaluation and Metrics
 
-12. The file should include headers and follow this format:
+- Printed cross-validation scores and calculated the mean balanced accuracy to evaluate model stability and performance.
 
-```python
-index,y
-0,0
-1,0
-2,1
-3,0
-4,0
-5,0
-...
-```
+#### 6. Final Model Training and Prediction
 
-After submitting the file with predictions and calculating the competition metric, consider ways to improve your results and continue experimenting to boost the metric.
+- **Final Model Training:**
+  - Trained the model on the entire training dataset for more robust predictions.
+- **Prediction and Submission:**
+  -Generated predictions for the test set.
+  - Created a submission file, submission.csv, containing predicted values of y for each instance in the test dataset, ready for upload to Kaggle.
